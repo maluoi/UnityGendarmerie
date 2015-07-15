@@ -1,0 +1,16 @@
+# Check here for examples of how to create additional rules!
+# https://github.com/mono/mono-tools/blob/master/gendarme/self-test.ignore
+
+R: Gendarme.Rules.Performance.AvoidMethodWithLargeMaximumStackSizeRule
+M: System.Collections.Generic.List`1<Ferr.AnalysisItem> Ferr.UnityGendarmerie::ScrapeAnalysis(System.String)
+
+R: Gendarme.Rules.Portability.DoNotHardcodePathsRule
+T: Ferr.UnityGendarmerie
+
+R: Gendarme.Rules.Performance.AvoidUncalledPrivateCodeRule
+T: Ferr.UnityGendarmerie
+
+R: Gendarme.Rules.Exceptions.DoNotSwallowErrorsCatchingNonSpecificExceptionsRule
+T: Ferr.UnityGendarmerie
+
+# Ensure a trailing newline, gendarme crashes without one!
