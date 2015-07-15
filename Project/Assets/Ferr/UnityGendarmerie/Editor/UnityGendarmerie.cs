@@ -3,19 +3,19 @@
  * 
  * Basic usage:
  * First, ensure you have gendarme on your computer! (https://github.com/spouliot/gendarme/downloads)
- * May also be good to be aware of the default ignore.txt file that should be at Assets/Ferr/CodeAnalysis/ignore.txt
+ * May also be good to be aware of the default ignore.txt file that should be at Assets/Ferr/UnityGendarmerie/ignore.txt
  * No promises about it working on a Mac. In fact, it likely won't without some tweaking!
  *
  * After that, it's all menus!
- * Use Tools->Gendarme->Run Static Code Analysis (Runtime code) 
+ * Use Tools->Ferr UnityGendarmerie->Run Static Code Analysis (Runtime code) 
  *	to analyze files that are distributed with your game, basically most things that aren't in the Editor folders
- * Use Tools->Gendarme->Run Static Code Analysis (Editor code)
+ * Use Tools->Ferr UnityGendarmerie->Run Static Code Analysis (Editor code)
  *	to analyze your custom editor code!
- * Right Click->Gendarme->Analyze Code on a .cs file, or a folder
+ * Right Click->Ferr UnityGendarmerie->Analyze Code on a .cs file, or a folder
  *	To analyze specific files, or folders of files. Use the warning levels to filter out lower level warnings.
  * 
  * Want better access to the data, or want to analyze other assemblies? Fret not!
- * GendarmeAnalysis.AnalyzeCode(new Uri("filename.exe"), true);
+ * UnityGendarmerie.AnalyzeCode(new Uri("filename.exe"), true);
  * AnalyzeCode has options for specifying specific assemblies, filters, and custom ignore files! It also returns
  * a list of the data in case you're interested in logging or doing something else with it yourself!
  * Use AnalyzeCodePath to do the same on a specific file or folder, this will only work for files that fit
