@@ -1,6 +1,8 @@
 # UnityGendarmerie
 Simple hooks for using Gendarme from inside the Unity editor!
 
+![](/maluoi/UnityGendarmerie/tree/master/Downloads/ManualImages/UnityGendarmerie.gif)
+
 
 **Go here for the .unitypackage you need to get running!**  
 https://github.com/maluoi/UnityGendarmerie/tree/master/Downloads  
@@ -11,7 +13,7 @@ https://github.com/spouliot/gendarme/downloads
 Notes:
 - First, ensure you have gendarme on your computer!
 - It may also be good to be aware of the default ignore.txt file that should be at Assets/Ferr/UnityGendarmerie/ignore.txt
-- No promises about it working on a Mac just yet. In fact, it likely won't without some tweaking, but it should be in soon!
+- UnityGendarmerie is set up by default to work on PC with the Gendarme installer! If you're on a Mac, or aren't using the installer, you'll need to specify the location in Assets/Ferr/UnityGendarmerie/configuration.txt!
 
 Basic usage:
 - Use Tools->Ferr UnityGendarmerie->Run Static Code Analysis (Runtime code) to analyze files that are distributed with your game, basically most things that aren't in the Editor folders

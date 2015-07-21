@@ -1,10 +1,11 @@
 ﻿/* UnityGendarmerie, 7/12/2015
+ * https://github.com/maluoi/UnityGendarmerie
  * Written by Nick Klingensmith (@koujaku)
  * 
  * Basic usage:
  * First, ensure you have gendarme on your computer! (https://github.com/spouliot/gendarme/downloads)
  * May also be good to be aware of the default ignore.txt file that should be at Assets/Ferr/UnityGendarmerie/ignore.txt
- * No promises about it working on a Mac. In fact, it likely won't without some tweaking!
+ * If you're on a Mac, and/or only grabbed the plain binaries folder, you may need to manually specify your gendarme path in the configuration.txt!
  *
  * After that, it's all menus!
  * Use Tools->Ferr UnityGendarmerie->Run Static Code Analysis (Runtime code) 
@@ -130,7 +131,7 @@ namespace Ferr {
 		#region Public Methods
 		/// <summary>
 		/// Uses Gendarme to do a static code analysis of your assembly! This does require that Gendarme is installed on your computer (https://github.com/spouliot/gendarme/downloads)
-		/// and may require some tweaking to work on Mac. Also note the gendarmePath const in this class in case you put it in a different folder!
+		/// and may require you to tweak the configuration file!
 		/// </summary>
 		/// <param name="aAssembly">Path to an assembly. Any .exe, .dll or whatever! Preferably with debug symbols present.</param>
 		/// <param name="aLog">Want this method to log the info for you? Sure!</param>
@@ -147,7 +148,7 @@ namespace Ferr {
 				return new List<AnalysisItem>();
 			}
 			if (!GendarmePresent()) {
-				Debug.LogError(string.Format("Gendarme was not found at {0}! You may wish to either install it, or configure the constants to point to the correct file! https://github.com/spouliot/gendarme/downloads", gendarmePath));
+				Debug.LogError(string.Format("Gendarme was not found at {0}! You may wish to install it, and set the correct path in the configuration file! https://github.com/spouliot/gendarme/downloads", gendarmePath));
 				return new List<AnalysisItem>();
 			}
 			
@@ -178,8 +179,8 @@ namespace Ferr {
 		}
 		/// <summary>
 		/// Uses Gendarme to do a static code analysis on a specific file! (through filtering) Only works on files in either the editor or runtime assemblies. 
-		/// This does require that Gendarme is installed on your computer (https://github.com/spouliot/gendarme/downloads) and may require some tweaking to work
-		/// on Mac. Also note the gendarmePath const in this class in case you put it in a different folder!
+		/// This does require that Gendarme is installed on your computer (https://github.com/spouliot/gendarme/downloads) and may require you to tweak the 
+		/// configuration file!
 		/// </summary>
 		/// <param name="aFileName">Path to a code file. Can be relative or absolute.</param>
 		/// <param name="aLog">Want this method to log the info for you? Sure!</param>
@@ -296,6 +297,7 @@ namespace Ferr {
 			return true;
 		}
 		static bool IsCodeOrFolder(UnityEngine.Object aObj) {
+			if (aObj == null) return false;
 			
 			if (aObj.GetType() == typeof(UnityEngine.Object)) {
 				if (string.IsNullOrEmpty(Path.GetExtension(AssetDatabase.GetAssetPath(aObj)))) {
