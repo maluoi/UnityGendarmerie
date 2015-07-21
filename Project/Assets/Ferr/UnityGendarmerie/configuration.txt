@@ -1,0 +1,2 @@
+[GendarmePath ] C:/Program Files (x86)/Gendarme/gendarme.exe
+[DefaultIgnore] /Assets/Ferr/UnityGendarmerie/ignore.txt

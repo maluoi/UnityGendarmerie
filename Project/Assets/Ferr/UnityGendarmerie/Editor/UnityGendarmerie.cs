@@ -89,14 +89,17 @@ namespace Ferr {
 	
 	public static class UnityGendarmerie {
 		#region Setup
-		const string gendarmePath     = "C:/Program Files (x86)/Gendarme/gendarme.exe";
-		const string editorAssembly   = "/Library/ScriptAssemblies/Assembly-CSharp-Editor.dll";
-		const string runtimeAssembly  = "/Library/ScriptAssemblies/Assembly-CSharp.dll";
-		const string defaultIgnore    = "/Assets/Ferr/UnityGendarmerie/ignore.txt";
+		const string configPath      = "Assets/Ferr/UnityGendarmerie/configuration.txt";
+		const string editorAssembly  = "/Library/ScriptAssemblies/Assembly-CSharp-Editor.dll";
+		const string runtimeAssembly = "/Library/ScriptAssemblies/Assembly-CSharp.dll";
 		
-		const string logFormat        = "Severity {1}: {0}\n{3}:{4}\n{2}\n\n{5} Solution: {6}\nFor more info: {7}\n";
+		const string logFormat    = "Severity {1}: {0}\n{3}:{4}\n{2}\n\n{5} Solution: {6}\nFor more info: {7}\n";
+		const int    menuPriority = 100;
+		#endregion
 		
-		const int    menuPriority     = 100;
+		#region Config variables
+		static string gendarmePath;
+		static string defaultIgnore;
 		#endregion
 		
 		#region Properties
@@ -139,8 +142,13 @@ namespace Ferr {
 		/// </returns>
 		public static ICollection<AnalysisItem> AnalyzeCode(Uri aAssembly, bool aLog = true, Uri aIgnoreFile = null, GendarmeSeverity aFilter = GendarmeSeverity.Medium) {
 			if (aAssembly == null) return new List<AnalysisItem>();
+			if (!LoadConfig(configPath)) {
+				Debug.LogError(string.Format("Config file for UnityGendarmerie was not found at {0}!", configPath));
+				return new List<AnalysisItem>();
+			}
 			if (!GendarmePresent()) {
-				Debug.Log("Gendarme was not found! You may wish to either install it, or configure the constants to point to the correct file! https://github.com/spouliot/gendarme/downloads");
+				Debug.LogError(string.Format("Gendarme was not found at {0}! You may wish to either install it, or configure the constants to point to the correct file! https://github.com/spouliot/gendarme/downloads", gendarmePath));
+				return new List<AnalysisItem>();
 			}
 			
 			List<AnalysisItem> items = null;
@@ -264,6 +272,28 @@ namespace Ferr {
 				result.Add(scrape);
 			}
 			return result;
+		}
+		static bool LoadConfig(string aFile) {
+			if (!File.Exists(aFile)) {
+				return false;
+			}
+			
+			Regex configItem = new Regex(@"\[\s*(\w*)\s*\]\s*(.*)");
+			
+			using (StreamReader reader = new StreamReader(aFile)) {
+				while (!reader.EndOfStream) {
+					string          line   = reader.ReadLine();
+					GroupCollection groups = configItem.Match(line).Groups;
+					
+					string name  = groups[1].Value.ToLower();
+					string value = groups[2].Value;
+					
+					if      (name == "gendarmepath" ) { gendarmePath  = value; } 
+					else if (name == "defaultignore") { defaultIgnore = value; }
+				}
+				reader.Close();
+			}
+			return true;
 		}
 		static bool IsCodeOrFolder(UnityEngine.Object aObj) {
 			

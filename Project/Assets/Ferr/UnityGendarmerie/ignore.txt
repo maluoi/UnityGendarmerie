@@ -13,4 +13,10 @@ T: Ferr.UnityGendarmerie
 R: Gendarme.Rules.Exceptions.DoNotSwallowErrorsCatchingNonSpecificExceptionsRule
 T: Ferr.UnityGendarmerie
 
+R: Gendarme.Rules.Performance.AvoidRepetitiveCallsToPropertiesRule
+M: System.Boolean Ferr.UnityGendarmerie::LoadConfig(System.String)
+
+R: Gendarme.Rules.Portability.NewLineLiteralRule
+T: Ferr.UnityGendarmerie
+
 # Ensure a trailing newline, gendarme crashes without one!
