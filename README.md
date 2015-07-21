@@ -1,7 +1,7 @@
 # UnityGendarmerie
 Simple hooks for using Gendarme from inside the Unity editor!
 
-![](/maluoi/UnityGendarmerie/tree/master/Downloads/ManualImages/UnityGendarmerie.gif)
+![](/Downloads/ManualImages/UnityGendarmerie.gif)
 
 
 **Go here for the .unitypackage you need to get running!**  
